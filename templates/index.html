@@ -1,0 +1,118 @@
+{% extends 'base.html'%}
+
+
+{% block content %}
+{% include 'includes/hero.html' %}
+
+<!-- Divider -->
+<div class="h-px bg-gradient-to-r from-transparent via-gray-600/50 to-transparent mx-6"></div>
+ <!-- Features -->
+        <section class="py-16 lg:py-20 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">Почему выбирают нас</h2>
+                    <p class="text-gray-400 text-lg">Простота, безопасность, надежность</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="text-center group">
+                        <div class="w-14 h-14 bg-gray-800 border border-gray-600/30 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:bg-gray-700 group-hover:border-gray-500/50 transition-all duration-200">
+                            <i class="fas fa-shield-alt text-blue-400 text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-3 text-white">Безопасные сделки</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">Гарантия возврата средств и защита от мошенников</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="w-14 h-14 bg-gray-800 border border-gray-600/30 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:bg-gray-700 group-hover:border-gray-500/50 transition-all duration-200">
+                            <i class="fas fa-bolt text-blue-400 text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-3 text-white">Мгновенная передача</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">Получите доступ к аккаунту сразу после оплаты</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="w-14 h-14 bg-gray-800 border border-gray-600/30 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:bg-gray-700 group-hover:border-gray-500/50 transition-all duration-200">
+                            <i class="fas fa-check-circle text-blue-400 text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-3 text-white">Проверенные аккаунты</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">Все аккаунты проходят тщательную проверку</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="w-14 h-14 bg-gray-800 border border-gray-600/30 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:bg-gray-700 group-hover:border-gray-500/50 transition-all duration-200">
+                            <i class="fas fa-headset text-blue-400 text-xl"></i>
+                        </div>
+                        <h3 class="font-semibold text-lg mb-3 text-white">Поддержка 24/7</h3>
+                        <p class="text-gray-400 leading-relaxed text-sm">Наша команда всегда готова помочь</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="h-px bg-gradient-to-r from-transparent via-gray-600/50 to-transparent mx-6"></div>
+
+            <!-- CTA -->
+            <section class="py-16 lg:py-20 px-6">
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-neutral-800 border border-gray-600/30 rounded-xl p-10 text-center hover:bg-gray-750 transition-colors duration-200">
+                        <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">Готовы начать?</h2>
+                        <p class="text-gray-400 text-lg mb-8">Найдите свой идеальный игровой аккаунт уже сегодня</p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 shadow-lg shadow-blue-500/25 hover:-translate-y-0.5">
+                                Смотреть аккаунты
+                            </button>
+                            <button class="border border-gray-600/50 text-gray-300 px-8 py-3 rounded-lg font-medium hover:bg-gray-700 hover:text-white hover:border-gray-500/50 transition-all duration-200">
+                                Продать аккаунт
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        <!-- Footer -->
+        <footer class="py-16 px-6  border-t border-gray-600/30">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="col-span-1 md:col-span-2">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/25">
+                                <i class="fas fa-bolt text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-lg text-white">Force Market</div>
+{#                                <div class="text-sm text-gray-400 font-mono">Gaming Accounts</div>#}
+                            </div>
+                        </div>
+                        <p class="text-gray-400 mb-6 max-w-md leading-relaxed">
+                            Надежная площадка для покупки и продажи игровых аккаунтов. Простота и безопасность в каждой сделке.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold mb-4 text-white">Игры</h4>
+                        <div class="space-y-2">
+                            <a href="#" class="block text-gray-400 hover:text-blue-400 transition-colors duration-200 text-sm">Fortnite</a>
+                            <a href="#" class="block text-gray-400 hover:text-blue-400 transition-colors duration-200 text-sm">Valorant</a>
+                            <a href="#" class="block text-gray-400 hover:text-blue-400 transition-colors duration-200 text-sm">League of Legends</a>
+                            <a href="#" class="block text-gray-400 hover:text-blue-400 transition-colors duration-200 text-sm">CS2</a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold mb-4 text-white">Поддержка</h4>
+                        <div class="space-y-2">
+                            <a href="#" class="block text-gray-400 hover:text-blue-400 transition-colors duration-200 text-sm">Помощь</a>
+                            <a href="#" class="block text-gray-400 hover:text-blue-400 transition-colors duration-200 text-sm">Контакты</a>
+                            <a href="#" class="block text-gray-400 hover:text-blue-400 transition-colors duration-200 text-sm">Правила</a>
+                            <a href="#" class="block text-gray-400 hover:text-blue-400 transition-colors duration-200 text-sm">Безопасность</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-px bg-gradient-to-r from-transparent via-gray-600/50 to-transparent my-8"></div>
+
+                <div class="text-center">
+                    <p class="text-gray-500 font-mono text-sm">© 2025 Force Market. Все права защищены.</p>
+                </div>
+            </div>
+        </footer>
+
+{% endblock %}

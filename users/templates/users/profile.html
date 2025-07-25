@@ -1,0 +1,317 @@
+{% extends 'base.html' %}
+
+{% block title %} Мой профиль {% endblock %}
+
+{% block content %}
+    <section class="relative">
+        <!-- Banner Background -->
+        <div class="h-64 lg:h-80 bg-gradient-to-br from-blue-600 via-purple-600 to-blue-800 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><defs><pattern id=%22grain%22 width=%22100%22 height=%22100%22 patternUnits=%22userSpaceOnUse%22><circle cx=%2250%22 cy=%2250%22 r=%221%22 fill=%22%23ffffff%22 opacity=%220.1%22/></pattern></defs><rect width=%22100%22 height=%22100%22 fill=%22url(%23grain)%22/></svg>'); opacity: 0.3;"></div>
+
+            <!-- Edit Banner Button -->
+            <button onclick="editBanner()" class="absolute top-4 right-4 bg-black/60 backdrop-blur-sm text-white px-3 py-2 rounded-lg font-medium text-sm transition-all duration-200 border border-gray-600/50 hover:bg-black/80">
+                <i class="fas fa-camera mr-2"></i>Изменить обложку
+            </button>
+        </div>
+
+        <div class="relative px-6 pb-8">
+            <div class="max-w-6xl mx-auto">
+                <!-- Avatar and Basic Info -->
+                <div class="flex flex-col lg:flex-row items-start lg:items-end space-y-6 lg:space-y-0 lg:space-x-8 -mt-16">
+                    <!-- Avatar -->
+                    <div class="relative">
+                        <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl border-4 border-gray-900 shadow-2xl overflow-hidden">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Cpath fill='%234F46E5' d='M0 0h128v128H0z'/%3E%3Cpath fill='%23FFF' d='M64 32a24 24 0 1 1 0 48 24 24 0 0 1 0-48zm-32 72a32 32 0 0 1 64 0v8H32v-8z'/%3E%3C/svg%3E" alt="Avatar" class="w-full h-full object-cover">
+                        </div>
+                        <!-- Status Badge -->
+                        <div class="absolute -bottom-2 -right-2">
+                            <div class="w-8 h-8 bg-green-500 rounded-full border-4 border-gray-900 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-check text-white text-xs"></i>
+                            </div>
+                        </div>
+                        <!-- Edit Avatar Button -->
+                        <button onclick="editAvatar()" class="absolute top-0 left-0 w-full h-full bg-black/60 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-200 flex items-center justify-center">
+                            <i class="fas fa-camera text-white text-xl"></i>
+                        </button>
+                    </div>
+
+                    <!-- User Info -->
+                    <div class="flex-1">
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                            <div>
+                                <div class="flex items-center space-x-3 mb-2">
+                                    <h1 class="text-3xl lg:text-4xl font-bold text-white">{{ user.username }}</h1>
+                                    <button onclick="editUsername()" class="text-gray-400 hover:text-white transition-colors duration-200">
+                                        <i class="fas fa-edit text-lg"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Profile Description -->
+                                <div class="mb-4">
+                                    <div id="profile-description" class="text-gray-200 text-base leading-relaxed max-w-lg">
+                                        {{ user.description|default:"Надежный продавец игровых аккаунтов 🎮<br>Более 3 лет опыта | Все аккаунты проверены ✅<br>Быстрые сделки | Гарантия качества 💎" }}
+                                    </div>
+                                    <button onclick="editDescription()" class="mt-2 text-gray-400 hover:text-blue-400 transition-colors duration-200 text-sm">
+                                        <i class="fas fa-edit mr-1"></i>Редактировать описание
+                                    </button>
+                                </div>
+
+                                <div class="flex items-center space-x-4 text-gray-300">
+                                    <span class="flex items-center space-x-2">
+                                        <i class="fas fa-calendar text-blue-400"></i>
+                                        <span class="text-sm">На площадке с марта 2023</span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="flex items-center space-x-3 mt-4 lg:mt-0">
+                                <button onclick="shareProfile()" class="bg-gradient-to-r bg-blue-500 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 flex items-center space-x-2">
+                                    <i class="fas fa-share"></i>
+                                    <span>Поделиться</span>
+                                </button>
+                                <a href="{% url 'users:profile_edit' %}" class="bg-neutral-800 border border-neutral-600/50 text-gray-300 hover:text-white hover:bg-neutral-700 px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 flex items-center space-x-2">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Редактировать профиль</span>
+                                </a>
+                                <a href="{% url 'users:logout' %}" class="bg-neutral-800 border border-neutral-600/50 text-gray-300 hover:text-white hover:bg-neutral-700 px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 flex items-center space-x-2">
+
+                                    <span>Выйти</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Stats -->
+    <section class="px-6 pb-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+                <!-- Rating -->
+                <div class="bg-neutral-800 border border-neutral-600/30 rounded-xl p-6 text-center hover:bg-gray-750 transition-colors duration-200">
+                    <div class="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-500 bg-clip-text text-transparent font-mono mb-1">{{ user.rating }}</div>
+                    <div class="text-gray-400 text-sm">Рейтинг</div>
+                </div>
+
+                <!-- Sales -->
+                <div class="bg-neutral-800 border border-neutral-600/30 rounded-xl p-6 text-center hover:bg-gray-750 transition-colors duration-200">
+                    <div class="text-2xl font-bold bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent font-mono mb-2">127</div>
+                    <div class="text-gray-400 text-sm">Продаж</div>
+                </div>
+
+                <!-- Reviews -->
+                <div class="bg-neutral-800 border border-neutral-600/30 rounded-xl p-6 text-center hover:bg-gray-750 transition-colors duration-200">
+                    <div class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent font-mono mb-2">84</div>
+                    <div class="text-gray-400 text-sm">Отзывов</div>
+                </div>
+
+                <!-- Response Time -->
+                <div class="bg-neutral-800 border border-neutral-600/30 rounded-xl p-6 text-center hover:bg-gray-750 transition-colors duration-200">
+                    <div class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-purple-500 bg-clip-text text-transparent font-mono mb-2">15м</div>
+                    <div class="text-gray-400 text-sm">Ответ</div>
+                </div>
+
+                <!-- Success Rate -->
+                <div class="bg-neutral-800 border border-neutral-600/30 rounded-xl p-6 text-center hover:bg-gray-750 transition-colors duration-200">
+                    <div class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-cyan-500 bg-clip-text text-transparent font-mono mb-2">99.2%</div>
+                    <div class="text-gray-400 text-sm">Успех</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Tabs -->
+    <section class="px-6">
+        <div class="max-w-6xl mx-auto">
+            <!-- Tab Navigation -->
+            <div class="flex items-center space-x-1 mb-8 bg-neutral-800 border border-neutral-600/30 rounded-xl p-2">
+                <button onclick="switchTab('accounts')" class="tab-btn flex-1 px-4 py-3 rounded-lg font-medium text-sm transition-all duration-200 bg-blue-500/20 text-blue-400 border border-blue-500/30" data-tab="accounts">
+                    <i class="fas fa-gamepad mr-2"></i>Мои аккаунты <span class="ml-2 text-xs bg-blue-500/30 px-2 py-0.5 rounded-full">24</span>
+                </button>
+                <button onclick="switchTab('reviews')" class="tab-btn flex-1 px-4 py-3 rounded-lg font-medium text-sm text-gray-300 hover:text-white hover:bg-gray-700/50 transition-all duration-200" data-tab="reviews">
+                    <i class="fas fa-star mr-2"></i>Отзывы <span class="ml-2 text-xs bg-gray-600 px-2 py-0.5 rounded-full">84</span>
+                </button>
+                <button onclick="switchTab('info')" class="tab-btn flex-1 px-4 py-3 rounded-lg font-medium text-sm text-gray-300 hover:text-white hover:bg-gray-700/50 transition-all duration-200" data-tab="info">
+                    <i class="fas fa-info-circle mr-2"></i>Информация
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="accounts">
+                <!-- Add New Account Button -->
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-semibold text-white">Мои аккаунты</h2>
+                    <button onclick="addNewAccount()" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 shadow-lg shadow-green-500/25 flex items-center space-x-2">
+                        <i class="fas fa-plus"></i>
+                        <span>Добавить аккаунт</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <!-- Account Card 1 -->
+                    <div class="bg-neutral-800 border border-gray-600/30 rounded-xl overflow-hidden hover:border-gray-500/50 hover:bg-gray-750 transition-all duration-200 group hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 relative">
+                        <!-- Edit Menu -->
+                        <div class="absolute top-3 right-3 z-10">
+                            <button onclick="editAccount(1)" class="w-8 h-8 bg-black/60 backdrop-blur-sm rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-colors duration-200 border border-gray-600/50">
+                                <i class="fas fa-ellipsis-h text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="relative">
+                            <div class="w-full h-48 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                                <i class="fas fa-crosshairs text-white text-4xl"></i>
+                            </div>
+                            <div class="absolute top-3 left-3">
+                                <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wide backdrop-blur-sm bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
+                                    legendary
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="p-5">
+                            <div class="flex items-center mb-4">
+                                <div class="w-10 h-10 bg-neutral-900 border border-gray-600/50 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-crosshairs text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-lg text-white">Fortnite</h3>
+                                    <div class="text-sm text-gray-400">Battle Royale</div>
+                                </div>
+                            </div>
+
+                            <p class="text-gray-300 mb-5 text-sm leading-relaxed">Renegade Raider, Black Knight, 280+ скинов</p>
+
+                            <div class="grid grid-cols-3 gap-2 mb-5">
+                                <div class="text-center p-2.5 bg-neutral-900 border border-gray-600/30 rounded-lg">
+                                    <div class="font-semibold text-blue-400 font-mono text-sm">280</div>
+                                    <div class="text-xs text-gray-500 mt-0.5">Уровень</div>
+                                </div>
+                                <div class="text-center p-2.5 bg-neutral-900 border border-gray-600/30 rounded-lg">
+                                    <div class="font-semibold text-blue-400 font-mono text-sm">3.2K</div>
+                                    <div class="text-xs text-gray-500 mt-0.5">V-Bucks</div>
+                                </div>
+                                <div class="text-center p-2.5 bg-neutral-900 border border-gray-600/30 rounded-lg">
+                                    <div class="font-semibold text-blue-400 font-mono text-sm">280+</div>
+                                    <div class="text-xs text-gray-500 mt-0.5">Скинов</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent font-mono">18,999₽</span>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button onclick="editAccountDetails(1)" class="bg-neutral-700 hover:bg-gray-600 text-white px-3 py-2 rounded-lg font-medium text-xs transition-all duration-200">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 shadow-lg shadow-blue-500/25">
+                                        {{ account.status|default:"Продается" }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Card 2 -->
+                    <div class="bg-neutral-800 border border-gray-600/30 rounded-xl overflow-hidden hover:border-gray-500/50 hover:bg-gray-750 transition-all duration-200 group hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 relative">
+                        <!-- Edit Menu -->
+                        <div class="absolute top-3 right-3 z-10">
+                            <button onclick="editAccount(2)" class="w-8 h-8 bg-black/60 backdrop-blur-sm rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-colors duration-200 border border-gray-600/50">
+                                <i class="fas fa-ellipsis-h text-xs"></i>
+                            </button>
+                        </div>
+
+                        <div class="relative">
+                            <div class="w-full h-48 bg-gradient-to-br from-red-600 to-orange-600 flex items-center justify-center">
+                                <i class="fas fa-crown text-white text-4xl"></i>
+                            </div>
+                            <div class="absolute top-3 left-3">
+                                <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wide backdrop-blur-sm bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                                    epic
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="p-5">
+                            <div class="flex items-center mb-4">
+                                <div class="w-10 h-10 bg-neutral-900 border border-gray-600/50 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-crown text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-semibold text-lg text-white">League of Legends</h3>
+                                    <div class="text-sm text-gray-400">MOBA</div>
+                                </div>
+                            </div>
+
+                            <p class="text-gray-300 mb-5 text-sm leading-relaxed">Алмаз II, все чемпионы, престижные скины</p>
+
+                            <div class="grid grid-cols-3 gap-2 mb-5">
+                                <div class="text-center p-2.5 bg-neutral-900 border border-gray-600/30 rounded-lg">
+                                    <div class="font-semibold text-blue-400 font-mono text-sm">Diamond</div>
+                                    <div class="text-xs text-gray-500 mt-0.5">Ранг</div>
+                                </div>
+                                <div class="text-center p-2.5 bg-neutral-900 border border-gray-600/30 rounded-lg">
+                                    <div class="font-semibold text-blue-400 font-mono text-sm">165</div>
+                                    <div class="text-xs text-gray-500 mt-0.5">Чемпионы</div>
+                                </div>
+                                <div class="text-center p-2.5 bg-neutral-900 border border-gray-600/30 rounded-lg">
+                                    <div class="font-semibold text-blue-400 font-mono text-sm">87</div>
+                                    <div class="text-xs text-gray-500 mt-0.5">Скинов</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="text-xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent font-mono">12,500₽</span>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button onclick="editAccountDetails(2)" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-lg font-medium text-xs transition-all duration-200">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 shadow-lg shadow-green-500/25">
+                                        Продан
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Edit Description Modal -->
+    <div id="edit-description-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-gray-800 border border-gray-600/50 rounded-xl max-w-md w-full p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-white">Редактировать описание</h3>
+                <button onclick="closeDescriptionModal()" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <textarea
+                id="description-textarea"
+                class="w-full h-32 bg-gray-900 border border-gray-600/50 rounded-lg p-3 text-white resize-none focus:outline-none focus:border-blue-500 transition-colors duration-200"
+                placeholder="Расскажите о себе... Можно использовать эмодзи и переносы строк ✨"
+                maxlength="200"
+            ></textarea>
+            <div class="flex justify-between items-center mt-4">
+                <span class="text-xs text-gray-400">
+                    <span id="char-count">0</span>/200 символов
+                </span>
+                <div class="flex space-x-3">
+                    <button onclick="closeDescriptionModal()" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm transition-colors duration-200">
+                        Отмена
+                    </button>
+                    <button onclick="saveDescription()" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm transition-colors duration-200">
+                        Сохранить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

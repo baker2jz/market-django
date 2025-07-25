@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>{% block title %}{% endblock %}</title>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-dark-main': '0a0a0a'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="overflow-y-scroll min-h-screen bg-neutral-900 text-gray-100 font-sans">
+    <div class="max-w-[1600px] mx-auto bg-neutral-900">
+        {% include 'includes/sidebar.html' %}
+        <div class="flex-1 lg:ml-64 bg-gradient-to-r">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>
